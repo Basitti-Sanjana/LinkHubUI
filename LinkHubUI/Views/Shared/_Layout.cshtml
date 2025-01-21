@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/Common/Home">LinkHub</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item"><a href="/Common/Home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="/Security/Register" class="nav-link">Register</a></li>
+                    <li class="nav-item"><a href="/Common/BrowseURL" class="nav-link">BrowseURLs</a> </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("A"))
+                        {
+                            <li class="nav-item"><a href="/Admin/Category" class="nav-link">Category</a></li>
+                            <li class="nav-item"><a href="/Admin/ListCategory" class="nav-link">ListCategory</a></li>
+                            <li class="nav-item"><a href="/Admin/ListUser" class="nav-link">ListUser</a></li>
+                            <li class="nav-item"><a href="/Admin/ApproveURLs" class="nav-link">ApproveURLs</a></li>
+                        }
+                        if (User.IsInRole("A") || User.IsInRole("U"))
+                        {
+                            <li class="nav-item"><a href="/User/SubmitURL" class="nav-link">SubmitURL</a></li>
+                            <li class="nav-item"><a href="/Security/Login/SignOut" class="nav-link">SignOut</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">@User.Identity.Name</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item"><a href="/Security/Login" class="nav-link">Login</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <blockquote class="blockquote">
+                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            </blockquote>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
